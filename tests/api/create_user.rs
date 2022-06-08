@@ -1,10 +1,7 @@
-use diesel::r2d2::PooledConnection;
-// use wiremock::matchers::{method, path};
-// use wiremock::{Mock, ResponseTemplate};
-use diesel::{QueryDsl, RunQueryDsl};
+use diesel::RunQueryDsl;
 
 use app::models::User;
-use app::schema::users::dsl::*;
+use app::schema::users::dsl::users;
 
 use crate::helpers::spawn_app;
 

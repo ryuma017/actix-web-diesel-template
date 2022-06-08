@@ -13,10 +13,8 @@ name = "app"
 [dependencies]
 actix-web = "4.0.1"
 chrono = "0.4.19"
-chrono-tz = "0.6.1"
 config = { version = "0.13.1", default-features = false, features = ["yaml"] }
 diesel = { version = "1.4.8", features = ["postgres", "chrono", "uuidv07", "r2d2"]}
-diesel_migrations = "1.4.0"
 # rand = { version = "0.8.5", features = ["std_rng"] }
 # reqwest = { version = "0.11.10", default-features = false, features = ["json", "rustls-tls"] }
 secrecy = { version = "0.8.0", features = ["serde"] }
@@ -37,3 +35,4 @@ reqwest = { version = "0.11", features = ["json"] }
 tokio = { version = "1.18.2", features = ["rt", "macros"] }
 uuid = { version = "0.8.2", features = ["v4"] }
 wiremock = "0.5.13"
+diesel_migrations = "1.4.0"

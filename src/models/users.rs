@@ -1,5 +1,4 @@
 use chrono::{DateTime, Utc};
-use diesel::types::FromSql;
 
 use crate::schema::users;
 
