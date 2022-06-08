@@ -13,8 +13,9 @@ name = "app"
 [dependencies]
 actix-web = "4.0.1"
 chrono = "0.4.19"
+chrono-tz = "0.6.1"
 config = { version = "0.13.1", default-features = false, features = ["yaml"] }
-diesel = { version = "1.4.8", features = ["postgres", "chrono", "uuid", "r2d2"]}
+diesel = { version = "1.4.8", features = ["postgres", "chrono", "uuidv07", "r2d2"]}
 diesel_migrations = "1.4.0"
 # rand = { version = "0.8.5", features = ["std_rng"] }
 # reqwest = { version = "0.11.10", default-features = false, features = ["json", "rustls-tls"] }
@@ -27,9 +28,9 @@ tokio = { version = "1.18.2", features = ["macros", "rt-multi-thread"] }
 # tracing-bunyan-formatter = "0.3.2"
 # tracing-log = "0.1.3"
 # tracing-subscriber = { version = "0.3.11", features = ["registry", "env-filter"] }
-# unicode-segmentation = "1.9.0"
+unicode-segmentation = "1.9.0"
 uuid = { version = "0.8.2", features = ["v4"] }
-# validator = "0.15.0"
+validator = "0.15.0"
 
 [dev-dependencies]
 reqwest = { version = "0.11", features = ["json"] }

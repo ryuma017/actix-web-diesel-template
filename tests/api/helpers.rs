@@ -4,14 +4,24 @@ use diesel::{Connection, PgConnection, RunQueryDsl};
 use uuid::Uuid;
 
 use app::configuration::{get_configuration, DatabaseSettings};
-use app::startup::{get_connection_pool, Application};
-
-type PgPool = r2d2::Pool<ConnectionManager<PgConnection>>;
+use app::startup::{get_connection_pool, Application, PgPool};
 
 pub struct TestApp {
     pub address: String,
     pub port: u16,
     pub db_pool: PgPool,
+}
+
+impl TestApp {
+    pub async fn post_user_data(&self, body: String) -> reqwest::Response {
+        reqwest::Client::new()
+            .post(&format!("{}/create_user", self.address))
+            .header("Content-Type", "application/x-www-form-urlencoded")
+            .body(body)
+            .send()
+            .await
+            .expect("Failed to execute request")
+    }
 }
 
 pub async fn spawn_app() -> TestApp {

@@ -3,11 +3,11 @@ use std::net::TcpListener;
 use actix_web::dev::Server;
 use actix_web::web::Data;
 use actix_web::{web, App, HttpServer};
-use diesel::r2d2::{self, ConnectionManager};
+use diesel::r2d2::{ConnectionManager, Pool};
 use diesel::PgConnection;
 
 use crate::configuration::{DatabaseSettings, Settings};
-use crate::routes::health_check;
+use crate::routes::{create_user, health_check};
 
 pub struct Application {
     port: u16,
@@ -38,11 +38,11 @@ impl Application {
     }
 }
 
-type PgPool = r2d2::Pool<ConnectionManager<PgConnection>>;
+pub type PgPool = Pool<ConnectionManager<PgConnection>>;
 
 pub fn get_connection_pool(configuration: &DatabaseSettings) -> PgPool {
     let manager = ConnectionManager::<PgConnection>::new(configuration.with_db());
-    r2d2::Pool::builder()
+    Pool::builder()
         .connection_timeout(std::time::Duration::from_secs(2))
         .build(manager)
         .expect("Failed to create pool.")
@@ -53,6 +53,7 @@ pub fn run(listener: TcpListener, db_pool: PgPool) -> Result<Server, std::io::Er
 
     let server = HttpServer::new(move || {
         App::new()
+            .route("/create_user", web::post().to(create_user))
             .route("/health_check", web::get().to(health_check))
             .app_data(db_pool.clone())
     })
